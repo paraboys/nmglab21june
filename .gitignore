@@ -27,3 +27,6 @@ frontend/.env.local
 Thumbs.db
 *.swp
 *.swo
+
+# Large files
+video/*.mp4
