@@ -1,0 +1,89 @@
+# Hermes Agent Config — Sanitized (secrets removed)
+# Source: ~/AppData/Local/hermes/config.yaml
+# Generated: 2026-06-21
+
+model:
+  default: openrouter/owl-alpha
+  provider: openrouter
+  base_url: https://openrouter.ai/api/v1
+  api_mode: chat_completions
+
+providers: {}
+fallback_providers: []
+credential_pool_strategies: {}
+
+toolsets:
+- hermes-cli
+
+max_concurrent_sessions: null
+
+agent:
+  max_turns: 60
+  gateway_timeout: 1800
+  restart_drain_timeout: 180
+  api_max_retries: 3
+  service_tier: ''
+  tool_use_enforcement: auto
+  task_completion_guidance: true
+  parallel_tool_call_guidance: true
+  environment_probe: true
+  environment_hint: ''
+  coding_context: auto
+  gateway_timeout_warning: 900
+  clarify_timeout: 600
+  gateway_notify_interval: 180
+  gateway_auto_continue_freshness: 3600
+  image_input_mode: auto
+  disabled_toolsets: []
+  verbose: false
+  reasoning_effort: medium
+
+terminal:
+  backend: local
+  modal_mode: auto
+  cwd: .
+  timeout: 180
+  persistent_shell: true
+
+web:
+  backend: ''
+  search_backend: ''
+  extract_backend: ''
+
+browser:
+  inactivity_timeout: 120
+  command_timeout: 30
+  engine: auto
+
+context:
+  engine: compressor
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+
+delegation:
+  inherit_mcp_toolsets: true
+  max_iterations: 50
+  max_concurrent_children: 3
+  max_spawn_depth: 1
+  orchestrator_enabled: true
+
+skills:
+  external_dirs: []
+
+curator:
+  enabled: true
+  interval_hours: 168
+
+slack:
+  require_mention: true
+
+discord:
+  require_mention: true
+  auto_thread: true
+
+# API keys and tokens have been REDACTED for security
+# See .env.example for the environment variable names you need to set

@@ -14,7 +14,7 @@ class StoreCardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'list_id' => 'required|exists:board_lists,id',
+            'list_id' => 'sometimes|exists:board_lists,id',
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
             'position' => 'nullable|integer|min:0',

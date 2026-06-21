@@ -1,0 +1,39 @@
+{
+  "name": "kanban-pro",
+  "version": "1.0.0",
+  "description": "Full-stack Kanban board application with Laravel API and React frontend",
+  "agents": {
+    "brain": {
+      "role": "Orchestrator — receives user tasks, plans work, delegates to hands, reviews output",
+      "model": "openrouter/owl-alpha"
+    },
+    "hands": {
+      "role": "Coder — executes specific implementation tasks (write code, fix bugs, run builds)",
+      "model": "inherits from brain unless overridden"
+    }
+  },
+  "channels": {
+    "slack": {
+      "channel_id": "C0BCUKJQCUQ",
+      "mention_required": true,
+      "scheme": "Threaded replies in a single channel; each task gets a thread"
+    }
+  },
+  "model_routing": {
+    "default": "openrouter/owl-alpha",
+    "fallback": "none configured",
+    "provider": "openrouter",
+    "api_mode": "chat_completions"
+  },
+  "skills": [
+    "autonomous-ai-agents",
+    "devops/windows-host-workarounds",
+    "github",
+    "software-development"
+  ],
+  "deployment": {
+    "backend": "Laravel 12, served via `php artisan serve` on port 8000",
+    "frontend": "React + Vite, served via `npm run dev` on port 5173",
+    "database": "SQLite (default)"
+  }
+}

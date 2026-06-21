@@ -2,53 +2,46 @@
 
 A full-stack Kanban board application built with **Laravel 12** (API backend) and **React + Vite** (frontend).
 
-## Features
+## What It Does
 
-- Create and manage boards
-- Create lists inside boards
-- Create, edit, and delete cards within lists
-- **Tags** — colored labels (bug, feature, design, urgent) on cards
-- **Members** — create members, assign to cards, display initials avatar
-- **Due Dates** — set due dates on cards, overdue cards highlighted with red border and "OVERDUE" label
-- Modern dark UI, responsive design
-- RESTful API
+Kanban Pro is a project management tool inspired by Trello. You can:
 
-## Project Structure
+- Create and manage **boards** (projects)
+- Add **lists** inside boards (columns like To-Do, Doing, Done)
+- Create **cards** within lists (tasks)
+- Edit card title, description, and move cards between lists
+- Add **colored tags** to cards (bug, feature, design, urgent)
+- Create **members** and assign them to cards (shown as initials avatar)
+- Set **due dates** on cards — overdue cards are highlighted with a red border and "OVERDUE" label
 
-```
-kanban-pro/
-├── backend/          # Laravel 12 API
-│   ├── app/
-│   │   ├── Http/Controllers/Api/   # BoardController, BoardListController, CardController, TagController, MemberController
-│   │   ├── Models/                 # Board, BoardList, Card, Tag, Member
-│   │   └── ...
-│   ├── database/
-│   │   ├── migrations/             # All table + pivot migrations
-│   │   └── seeders/                # DatabaseSeeder (default tags)
-│   ├── routes/api.php
-│   └── ...
-├── frontend/         # React + Vite SPA
-│   ├── src/
-│   │   ├── components/  # Sidebar, BoardView, ListColumn, Card, Spinner
-│   │   ├── pages/        # Home, Board
-│   │   ├── services/     # api.js (Axios)
-│   │   └── ...
-│   └── ...
-├── ARCHITECTURE.md
-├── agent-log.md
-└── .env.example
-```
+## Tech Stack & Models
+
+### Backend — Laravel 12
+| Model | Purpose | Key Relationships |
+|-------|---------|-------------------|
+| `Board` | Top-level project container | HasMany BoardList, HasMany Card |
+| `BoardList` | Column inside a board (e.g. To-Do) | BelongsTo Board, HasMany Card |
+| `Card` | Task/item inside a list | BelongsTo Board, BelongsTo BoardList, BelongsToMany Tag, BelongsToMany Member |
+| `Tag` | Colored label (bug, feature, etc.) | BelongsToMany Card |
+| Member | Person assignable to cards | BelongsToMany Card |
+
+**Why these models**: A board has lists, lists have cards. Cards can have multiple tags and many-to-many with members. This is a classic Kanban domain model.
+
+### Frontend — React 18 + Vite
+- HashRouter for client-side routing
+- Axios for API calls
+- CSS custom properties for dark theme
+- No external state library (useState + useEffect)
 
 ## Quick Start
 
 ### Prerequisites
-
 - PHP 8.2+
 - Composer
 - Node.js 18+
 - npm
 
-### Backend
+### Backend (Laravel API)
 
 ```bash
 cd backend
@@ -61,7 +54,7 @@ php artisan serve
 
 The API will be available at `http://localhost:8000/api`.
 
-### Frontend
+### Frontend (React SPA)
 
 ```bash
 cd frontend
@@ -70,6 +63,12 @@ npm run dev
 ```
 
 The frontend will be available at `http://localhost:5173`.
+
+## Live URL
+
+> ⚠️ Not yet deployed. Running locally at:
+> - API: `http://localhost:8000`
+> - UI: `http://localhost:5173`
 
 ## API Endpoints
 
@@ -125,6 +124,38 @@ The database seeder creates these tags automatically:
     {"id": 1, "name": "John Doe", "email": "john@example.com"}
   ]
 }
+```
+
+## Project Structure
+
+```
+kanban-pro/
+├── backend/          # Laravel 12 API
+│   ├── app/
+│   │   ├── Http/Controllers/Api/   # BoardController, BoardListController, CardController, TagController, MemberController
+│   │   ├── Http/Requests/          # StoreCardRequest, UpdateCardRequest
+│   │   └── Models/                 # Board, BoardList, Card, Tag, Member
+│   ├── database/
+│   │   ├── migrations/             # All table + pivot migrations
+│   │   └── seeders/                # DatabaseSeeder (default tags)
+│   ├── routes/api.php
+│   └── ...
+├── frontend/         # React + Vite SPA
+│   ├── src/
+│   │   ├── components/  # Sidebar, BoardView, ListColumn, Card, Spinner
+│   │   ├── pages/        # Home, Board
+│   │   ├── services/     # api.js (Axios)
+│   │   └── ...
+│   └── ...
+├── skills/
+│   └── kanban-pro/SKILL.md         # Reusable skill for Hermes
+├── slack-export/                    # Proof of Slack chat loop
+├── ARCHITECTURE.md                  # Technical + agent architecture
+├── agent-log.md                     # Unedited agent work log
+├── openclaw.json                    # Agent/channel/model config
+├── config.yaml                      # Hermes config (secrets removed)
+├── .env.example                     # Environment variable template
+└── README.md                        # This file
 ```
 
 ## License

@@ -7,6 +7,41 @@ Kanban Pro is a full-stack SPA with a decoupled architecture:
 - **Backend**: Laravel 12 REST API (serves JSON, no views)
 - **Frontend**: React 18 + Vite SPA (consumes API via Axios)
 
+## Agent Architecture
+
+### Brain (Orchestrator)
+- **Role**: Receives user tasks from Slack, plans work, delegates to hands, reviews output
+- **Model**: `openrouter/owl-alpha`
+- **Tools**: All Hermes tools (terminal, file, browser, search, etc.)
+
+### Hands (Coder)
+- **Role**: Executes specific implementation tasks — write code, fix bugs, run builds
+- **Model**: Inherits from brain (openrouter/owl-alpha) unless overridden
+- **Tools**: Inherits from brain
+
+### Agent Workflow
+1. User sends task via Slack
+2. Brain analyzes, creates a plan, delegates subtasks
+3. Hands execute code changes, run tests, verify
+4. Brain reviews output, reports back to Slack
+
+## Slack Channel Scheme
+
+- **Channel**: `C0BCUKJQCUQ` (single channel for all tasks)
+- **Scheme**: Threaded replies — each task gets a thread
+- **Mention required**: Yes (`@OWL` to trigger)
+- **Round-trip**: User sends task → OWL responds in thread → User replies in thread
+
+## Model Routing
+
+| Setting | Value |
+|---------|-------|
+| Default Model | `openrouter/owl-alpha` |
+| Provider | OpenRouter |
+| API Mode | `chat_completions` |
+| Fallback | None configured |
+| Base URL | `https://openrouter.ai/api/v1` |
+
 ## Backend Architecture
 
 ### Models
