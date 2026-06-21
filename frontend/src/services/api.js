@@ -27,4 +27,16 @@ export const createCard = (listId, data) => api.post(`/board-lists/${listId}/car
 export const updateCard = (id, data) => api.put(`/cards/${id}`, data);
 export const deleteCard = (id) => api.delete(`/cards/${id}`);
 
+// Tags
+export const fetchTags = () => api.get('/tags');
+export const createTag = (data) => api.post('/tags', data);
+export const updateTag = (id, data) => api.put(`/tags/${id}`, data);
+export const deleteTag = (id) => api.delete(`/tags/${id}`);
+
+// Members
+export const fetchMembers = () => api.get('/members');
+export const createMember = (data) => api.post('/members', data);
+export const updateMember = (id, data) => api.put(`/members/${id}`, data);
+export const deleteMember = (id) => api.delete(`/members/${id}`);
+
 export default api;

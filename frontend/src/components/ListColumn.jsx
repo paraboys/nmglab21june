@@ -6,6 +6,7 @@ export default function ListColumn({ list, onCardCreated, onCardUpdated, onCardD
   const [showAddCard, setShowAddCard] = useState(false);
   const [cardTitle, setCardTitle] = useState('');
   const [cardDesc, setCardDesc] = useState('');
+  const [cardDueDate, setCardDueDate] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -15,12 +16,17 @@ export default function ListColumn({ list, onCardCreated, onCardUpdated, onCardD
     setLoading(true);
     setError(null);
     try {
-      const { data } = await createCard(list.id, {
+      const payload = {
         title: cardTitle.trim(),
         description: cardDesc.trim(),
-      });
+      };
+      if (cardDueDate) {
+        payload.due_date = cardDueDate;
+      }
+      const { data } = await createCard(list.id, payload);
       setCardTitle('');
       setCardDesc('');
+      setCardDueDate('');
       setShowAddCard(false);
       onCardCreated?.(data);
     } catch (err) {
@@ -33,6 +39,7 @@ export default function ListColumn({ list, onCardCreated, onCardUpdated, onCardD
   const handleCancel = () => {
     setCardTitle('');
     setCardDesc('');
+    setCardDueDate('');
     setShowAddCard(false);
     setError(null);
   };
@@ -73,6 +80,15 @@ export default function ListColumn({ list, onCardCreated, onCardUpdated, onCardD
               onChange={(e) => setCardDesc(e.target.value)}
               rows={2}
             />
+            <div className="card-edit__row">
+              <label className="card-edit__label">Due Date</label>
+              <input
+                type="date"
+                className="input input--date"
+                value={cardDueDate}
+                onChange={(e) => setCardDueDate(e.target.value)}
+              />
+            </div>
             {error && <p className="error-text">{error}</p>}
             <div className="form-actions">
               <button type="button" className="btn btn-ghost btn-sm" onClick={handleCancel}>
