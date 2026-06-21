@@ -1,0 +1,29 @@
+# Root
+.env
+agent-log.md
+
+# Backend
+backend/vendor/
+backend/node_modules/
+backend/storage/*.key
+backend/.env
+backend/.env.backup
+backend/bootstrap/cache/
+backend/storage/framework/cache/
+backend/storage/framework/sessions/
+backend/storage/framework/views/
+backend/storage/logs/
+backend/public/build/
+backend/public/hot
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
