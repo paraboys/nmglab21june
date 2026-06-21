@@ -1,6 +1,5 @@
 # Root
 .env
-agent-log.md
 
 # Backend
 backend/vendor/
