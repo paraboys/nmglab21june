@@ -64,11 +64,9 @@ npm run dev
 
 The frontend will be available at `http://localhost:5173`.
 
-## Live URL
-
-> ⚠️ Not yet deployed. Running locally at:
-> - API: `http://localhost:8000`
-> - UI: `http://localhost:5173`
+## Live URL 
+frontend: `https://hermes-kanban-frontend.vercel.app/ `
+API: `https://hermes-kanban-api.onrender.com`
 
 ## API Endpoints
 
